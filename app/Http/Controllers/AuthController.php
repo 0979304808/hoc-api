@@ -9,12 +9,13 @@ use Illuminate\Support\Str;
 ;
 class AuthController extends Controller
 {
+    //phan nay la gi
     protected $user;
     public function __construct()
     {
         $this->user = new User();
     }
-
+    
     // Đăng Ký ( tạo token  )
     public function register(AuthRegister $request)
     {
