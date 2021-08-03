@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 class AuthController extends Controller
 {
     protected $user;
+    public $name;
     public function __construct()
     {
         $this->user = new User();
