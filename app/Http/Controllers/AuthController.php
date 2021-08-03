@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 ;
 class AuthController extends Controller
 {
-    //phan nay la gi
     protected $user;
     public function __construct()
     {
