@@ -44,6 +44,6 @@ class AuthRegister extends FormRequest
     }
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([$validator->errors()],403));
+        throw new HttpResponseException(response()->json(['error' => true, 'message' => $validator->errors()->first()],403 ));
     }
 }

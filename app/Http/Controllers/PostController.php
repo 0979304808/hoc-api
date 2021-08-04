@@ -15,6 +15,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $check = $request->all();
+
         $limit = $request->get('limit');
         $sort = $request->get('sort');
         $search = $request->get('search');
