@@ -14,8 +14,6 @@ class PostController extends Controller
     // Lấy ra tất cả danh sách bài đăng
     public function index(Request $request)
     {
-        $check = $request->all();
-
         $limit = $request->get('limit');
         $sort = $request->get('sort');
         $search = $request->get('search');
@@ -68,7 +66,7 @@ class PostController extends Controller
                 $validated = $request->validated();
                 $validated['image'] = time().'_'.$file->getClientOriginalName();
                 Helper::deleteFile($post->image); // Xóa file cũ
-                Helper::uploadFile($file); // upload file
+                Helper::uploadFile($file); // upload file mới
                 $post->update($validated);
                 return response()->json(['status'=>200,'data' => new PostResource($post)],200);
             }else {
