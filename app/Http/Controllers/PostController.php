@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-
+    //hello xin chao
     protected  $user;
     public function __construct()
     {
