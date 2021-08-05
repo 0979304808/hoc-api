@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\Helper;
 use App\Http\Requests\AuthRegister;
 use App\User;
 use Illuminate\Http\Request;
@@ -26,20 +25,18 @@ class AuthController extends Controller
         if (isset($user)){
             if ($user->id == $user->id){
                 $user->delete();
-                return response()->json(['status'=>200,'msg'=>'Xóa tài khoản thành công'],200);
+                return success('Xoa tai khoan thanh cong', 200);
             }
         }
-        return response()->json(['status'=>401,'msg'=>'Bạn không có quyền truy cập'],401);
+        return error('khong co quyen truy cap', 401);
     }
 
     // Lấy thông tin của toi
     public function me(Request $request) {
         $user = Helper::checktoken($request);
         if (!$user){
-            return response()->json(['status'=>401,'msg'=>'Bạn không có quyền truy cập'],401);
+            return error('khong co quyen truy cap', 401);
         }
-        return response()->json(['status'=>200,'data'=>$user],200);
+        return success($user, 200);
     }
-
-
 }

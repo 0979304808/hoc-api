@@ -27,7 +27,7 @@ Route::get('post','PostController@index');
 Route::post('store/post','PostController@store');
 Route::get('show/post/{post}','PostController@show')->where('post','[0-9]+');
 Route::post('update/post/{post}','PostController@update')->where('post','[0-9]+');
-Route::delete('delete/post/{post}','PostController@delete')->where('post','[0-9]+');
+Route::delete('delete/post/{post}','PostController@destroy')->where('post','[0-9]+');
 
 
 Route::post('laratrust','LaratrustController@create');

@@ -2,93 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\Helper;
 use App\Http\Requests\PostCreate;
 use App\Http\Requests\PostUpdate;
 use App\Http\Resources\PostResource;
 use App\Posts;
 use Illuminate\Http\Request;
+use App\Traits\TraitsData;
+
 
 class PostController extends Controller
 {
+    use TraitsData;
+
     // Lấy ra tất cả danh sách bài đăng
     public function index(Request $request)
     {
-        $limit = $request->get('limit');
-        $sort = $request->get('sort');
-        $search = $request->get('search');
-        if (!$limit){
-            $limit = null ;
-        }
-        if (!$sort){
-            $sort = 'asc' ;
-        }
-        if (!$search){
-            $search = null ;
-        }
+        $limit = $request->get('limit',10);
+        $sort = $request->get('sort','asc');
+        $search = $request->get('search',null);
         $post = Posts::where('title','like','%'.$search.'%')->orderBy('id',$sort)->paginate($limit);
-        return response()->json(['status' => 200, 'data' => PostResource::collection($post) ],200);
+        return success( PostResource::collection($post),200 );
     }
 
     // Tạo bài viết ( chỉ tạo được khi có token )
     public function store(PostCreate $request)
     {
-        $user = Helper::checktoken($request);
-        $file = $request->file('image');
-        if(isset($user)){
+        $user = $this->CheckToken($request) ;
+        if (!empty($user)){
+            $image = $this->uploadFlie($request);
             $validated = $request->validated();
             $validated['user_id'] = $user->id ;
-            $validated['image'] = time().'_'.$file->getClientOriginalName();
-            Helper::uploadFile($file); // upload file vao public/uploads
+            $validated['image'] = $image;
             $post = Posts::create($validated);
-            return response()->json(['status'=>201, 'data' => new PostResource($post)],201);
+            return success( new PostResource($post),201 );
         }else{
-            return response()->json(['status' => 401,'msg' => 'Ban khong co quyen truy cap'],401);
+            return error( 'khong co quyen truy cap',401 );
         }
 
     }
 
-
     // Lấy ra 1 bài viết
     public function show(Posts $post)
     {
-        return response()->json(['status'=>200, 'data' => new PostResource($post)],200);
+        return success( new PostResource($post), 200);
     }
 
 
     // Cập nhật bài viết ( chỉ người đăng mới có quyền sửa )
     public function update(PostUpdate $request, Posts $post)
     {
-        $file = $request->file('image');
-        $user = Helper::checktoken($request);
+//        $file = $this->uploadFlie($request);
+        $user = $this->CheckToken($request);
         if(isset($user)){
             if ($user->id == $post->user_id){
                 $validated = $request->validated();
-                $validated['image'] = time().'_'.$file->getClientOriginalName();
-                Helper::deleteFile($post->image); // Xóa file cũ
-                Helper::uploadFile($file); // upload file mới
+                $this->deleteFile($post->image); // Xóa file ảnh cũ
+                $image = $this->uploadFlie($request); // Update file ảnh mới
+                $validated['image'] = $image;
                 $post->update($validated);
-                return response()->json(['status'=>200,'data' => new PostResource($post)],200);
+                return success( new PostResource($post),200 );
             }else {
-                return response()->json(['status'=>401,'msg' => 'Ban khong co quyen truy cap'],401);
+                return error('khong co quyen truy cap', 401);
             }
         }else{
-            return response()->json(['status'=>401,'msg' => 'Ban khong co quyen truy cap'],401);
+            return error('khong co quyen truy cap', 401);
         }
     }
 
     // Xóa bài viết ( chỉ người đăng mới có quyền xóa )
     public function destroy(Request $request,Posts $post)
     {
-        $user = Helper::checktoken($request);
+        $user = $this->CheckToken($request);
         if(isset($user)){
             if ($user->id == $post->user_id){
-                Helper::deleteFile($post->image);
+                $this->deleteFile($post->image); // Xóa ảnh trong file image/posts
                 $post->delete();
-                return response()->json(['status'=>200, 'msg' => 'Xóa thành công'],200);
+                return success('Xoa thanh cong', 200);
             }
         }
-        return response()->json(['status'=>401,'msg' => 'Ban khong co quyen truy cap'],401);
-
+        return error('khong co quyen truy cap', 401);
     }
 }

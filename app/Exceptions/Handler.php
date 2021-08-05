@@ -3,7 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+use http\Exception\InvalidArgumentException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -47,9 +50,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception instanceof NotFoundHttpException && $request->is('api/*')){
-            return response()->json(['status'=>404,'msg' => 'Khong co trang'],404);
+        if ($exception instanceof ValidationException){
+            return $this->convertExceptionToResponse($exception, $request);
         }
+        if($exception instanceof NotFoundHttpException && $request->is('api/*')){
+            return error('Khong co trang',404);
+        }
+        if($exception instanceof ModelNotFoundException && $request->is('api/*')){
+            $modelName = strtolower(class_basename($exception->getModel()));
+            $list_id = implode(',',$exception->getIds());
+            return error($modelName.' object '.$list_id.' not found',404);
+        }
+
         return parent::render($request, $exception);
     }
 }
