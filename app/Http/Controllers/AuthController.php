@@ -6,9 +6,10 @@ use App\Http\Requests\AuthRegister;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-;
+use App\Traits\TraitsData;
 class AuthController extends Controller
 {
+    use TraitsData;
     // Đăng Ký ( tạo token  )
     public function register(AuthRegister $request)
     {
@@ -21,7 +22,7 @@ class AuthController extends Controller
 
     // Xóa tài khoản
     public function delete(Request $request,User $user) {
-        $user = Helper::checktoken($request);
+        $user = $this->CheckToken($request) ;
         if (isset($user)){
             if ($user->id == $user->id){
                 $user->delete();
@@ -33,7 +34,7 @@ class AuthController extends Controller
 
     // Lấy thông tin của toi
     public function me(Request $request) {
-        $user = Helper::checktoken($request);
+        $user = $this->CheckToken($request) ;
         if (!$user){
             return error('khong co quyen truy cap', 401);
         }
