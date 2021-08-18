@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\File;
 
 function success($data, $code = 200)
 {
@@ -47,6 +48,8 @@ function nosql($table, $method, $documentID = null, $payload = null)
 }
 
 
+
+
 if(!function_exists('curl_post')){
     /**
      * Get data via curl
@@ -76,4 +79,31 @@ if(!function_exists('curl_post')){
         curl_close($curl);
         return $response;
     }
+}
+
+
+// Lưu Audio
+function audio($url)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    $fullpath = basename($url);
+
+    if (File::exists(public_path('audio/' . $fullpath))) {
+        unlink(public_path('audio/' . $fullpath));
+    }
+    $fp = fopen(public_path('audio/' . $fullpath), 'x');
+    $a = fwrite($fp, $result);
+    if ($a > 104857600){
+        unlink(public_path('audio/' . $fullpath));
+        return null;
+    }
+    fclose($fp);
+    return 'http://127.0.0.1:8000/audio/'.$fullpath;
 }

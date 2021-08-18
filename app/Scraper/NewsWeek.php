@@ -3,8 +3,16 @@
 namespace App\Scraper;
 
 use Goutte\Client;
+use Illuminate\Support\Facades\File;
 use PHPOnCouch\CouchClient;
 use Symfony\Component\Console\Output\ConsoleOutput;
+
+// scrape:NewsWeek
+// DB newsweek
+// _design : design
+// _view : newsweek
+// emit( doc.link, doc )
+
 
 class NewsWeek extends CrawlerFunction
 {
@@ -49,18 +57,18 @@ class NewsWeek extends CrawlerFunction
         return false;
     }
 
-    // Get Home
+    // Get Page Home
     private function get_news_list($crawler)
     {
 
         $total = 0;
         try {
-            $a = $crawler->filter('.col4 .content .feature2 article')->each(function ($node) {
+            $a = $crawler->filter('.col4 .content article')->each(function ($node) {
                 return [
-                    'title' => $node->filter('.image a')->text(),
-                    'link' => $node->filter('.image a')->attr('href'),
-                    'description' => $node->filter('.summary')->text(),
-                    'img' => $node->filter('.image img')->attr('src')
+                    'title' => $node->filter('.image a')->count() ? $node->filter('.image a')->text() : null,
+                    'link' => $node->filter('.image a')->count() ? $node->filter('.image a')->attr('href') : null,
+                    'description' => $node->filter('.summary')->count() ? $node->filter('.summary')->text() : null,
+                    'img' => $node->filter('.image img')->count() ? $node->filter('.image img')->attr('src') : null
                 ];
             });
             return $a;
@@ -70,7 +78,7 @@ class NewsWeek extends CrawlerFunction
         return $total;
     }
 
-    // Get Details
+    // Get Page Details
     private function get_detail_news($url)
     {
         $news = $this->get_content_html($url);
@@ -79,16 +87,14 @@ class NewsWeek extends CrawlerFunction
                 $text = $node->filter('.article-body p')->each(function ($t) {
                     return $t->text();
                 });
-                $audio = trim(implode(',', $text));
-//                $saveUrl = asset("audio/".substr($this->get_audio($audio),5,-2));
-                $url_audio = "https://readspeaker.jp/ASLCLCLVVS/JMEJSYGDCHMSMHSRKPJL/" . substr($this->get_audio($audio), 5, -2);
+                $url_audio = "https://readspeaker.jp/ASLCLCLVVS/JMEJSYGDCHMSMHSRKPJL/" . substr($this->get_audio($text), 5, -2);
                 return [
                     'body' => trim(implode(',', $text)),
-                    'images' => [$node->filter('figure img')->attr('src')],
+                    'images' => [($node->filter('figure img')->count()) ? $node->filter('figure img')->attr('src') : null],
                     'video' => 'video',
                     'audio' => $url_audio,
-                    'date' => $node->filter('time')->attr('datetime'),
-                    'author' => $node->filter('.author a')->text()
+                    'date' => $node->filter('time')->count() ? $node->filter('time')->attr('datetime') : null,
+                    'author' => $node->filter('.author a')->count() ? $node->filter('.author a')->text() : null,
                 ];
             });
             return $a[0];
@@ -99,14 +105,9 @@ class NewsWeek extends CrawlerFunction
     // Lưu vào nosql
     private function store_news(array $news)
     {
-
-        // Check exists link
         if (!$this->exists_news(self::url . $news['link'])) {
-            // Crawler detail news
-            try {
                 $detail = $this->get_detail_news(self::url . $news['link'], $news['title']);
                 if (!is_null($detail)) {
-
                     $data = [
                         'title' => $news['title'],
                         'link' => self::url . $news['link'],
@@ -118,7 +119,7 @@ class NewsWeek extends CrawlerFunction
                             'body' => $this->get_kanji_only($detail['body']),
                             'images' => $detail['images'],
                             'video' => $detail['video'],
-                            'audio' => $this->audio($detail['audio']),
+                            'audio' => audio($detail['audio']),
                         ],
                         'type' => 'normal',
                     ];
@@ -126,10 +127,6 @@ class NewsWeek extends CrawlerFunction
                     $this->couch->storeDoc((object)$data);
                     print $news['title'] . "\n";
                 }
-            } catch (\Exception $e) {
-                $this->output->writeln($e->getMessage());
-                return false;
-            }
         }
         return false;
     }
@@ -146,25 +143,5 @@ class NewsWeek extends CrawlerFunction
         return strip_tags(preg_replace($regex, '$1', $string));
     }
 
-    // Lưu Audio
-    public function audio($url)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        // Lưu file ảnh
-        $fullpath = basename($url);
-        if (file_exists(public_path('audio/' . $fullpath))) {
-            unlink(public_path('audio/' . $fullpath));
-        }
-        $fp = fopen(public_path('audio/' . $fullpath), 'x');
-        fwrite($fp, $result);
-        fclose($fp);
-        return 'http://localhost:8000/audio/' . $fullpath;
-    }
 
 }
