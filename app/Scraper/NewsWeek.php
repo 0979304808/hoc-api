@@ -5,7 +5,6 @@ namespace App\Scraper;
 use Goutte\Client;
 use PHPOnCouch\CouchClient;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use File;
 
 class NewsWeek extends CrawlerFunction
 {
@@ -26,8 +25,6 @@ class NewsWeek extends CrawlerFunction
 
     public function scraper()
     {
-        // Get news editor
-//        $this->newsEditor->get_news_today();
         $crawler = $this->get_content_html(self::url);
         if ($crawler !== false) {
             $homes = $this->get_news_list($crawler);
@@ -52,6 +49,7 @@ class NewsWeek extends CrawlerFunction
         return false;
     }
 
+    // Get Home
     private function get_news_list($crawler)
     {
 
@@ -72,6 +70,7 @@ class NewsWeek extends CrawlerFunction
         return $total;
     }
 
+    // Get Details
     private function get_detail_news($url)
     {
         $news = $this->get_content_html($url);
@@ -97,8 +96,10 @@ class NewsWeek extends CrawlerFunction
         return null;
     }
 
+    // Lưu vào nosql
     private function store_news(array $news)
     {
+
         // Check exists link
         if (!$this->exists_news(self::url . $news['link'])) {
             // Crawler detail news
@@ -114,13 +115,14 @@ class NewsWeek extends CrawlerFunction
                         'author' => $detail['author'],
                         'date' => $detail['date'],
                         'content' => [
-                            'body' => $detail['body'],
+                            'body' => $this->get_kanji_only($detail['body']),
                             'images' => $detail['images'],
                             'video' => $detail['video'],
-                            'audio' => $detail['audio'],
+                            'audio' => $this->audio($detail['audio']),
                         ],
                         'type' => 'normal',
                     ];
+
                     $this->couch->storeDoc((object)$data);
                     print $news['title'] . "\n";
                 }
@@ -143,4 +145,26 @@ class NewsWeek extends CrawlerFunction
         $regex = '/<ruby.*?>(.+?)<rt.*?<\/rt>.*?<\/ruby>/';
         return strip_tags(preg_replace($regex, '$1', $string));
     }
+
+    // Lưu Audio
+    public function audio($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        // Lưu file ảnh
+        $fullpath = basename($url);
+        if (file_exists(public_path('audio/' . $fullpath))) {
+            unlink(public_path('audio/' . $fullpath));
+        }
+        $fp = fopen(public_path('audio/' . $fullpath), 'x');
+        fwrite($fp, $result);
+        fclose($fp);
+        return 'http://localhost:8000/audio/' . $fullpath;
+    }
+
 }

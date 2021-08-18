@@ -41,11 +41,3 @@ Route::post('updateDocument/{document}','CrawlController@updateDocument');
 Route::get('deleteDocument/{documnet}','CrawlController@deleteDocument');
 Route::get('document/{document}','CrawlController@show');
 
-Route::get('get', function() {
-    $crawler = Goutte::request('GET', 'https://www.newsweek.com/putting-students-risk-ed-sec-warns-against-opposing-covid-mitigation-amid-delta-surge-1617319');
-    $a = $crawler->filter('.content article p')->each(function ($node) {
-        return $node->text();
-    });
-    $c = implode(',', $a);
-    dd($c);
-});
