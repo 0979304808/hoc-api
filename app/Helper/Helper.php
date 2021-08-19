@@ -107,3 +107,73 @@ function audio($url)
     fclose($fp);
     return 'http://127.0.0.1:8000/audio/'.$fullpath;
 }
+
+// Check dữ liệu và trả về string
+function CheckRG($str,$result = null) {
+    $datas = str_word_count(checkString($str),1);
+    foreach ($datas as $data){
+        $Toeic = CheckToefl($data,'Toeic');
+        $Toefl = CheckToefl($data,'Toefl');
+        $Ielts = CheckToefl($data,'Ielts');
+        $result[] = Data($Toeic, $Ielts, $Toefl, $data);
+    }
+    return implode(" ",$result);
+}
+// Thêm thẻ span và các class
+function Data($Toeic, $Ielts, $Toefl, $data){
+    return "<span class='".(  ( ($Toefl ? $Toefl : null).($Ielts ? ' '.$Ielts : null).( $Toeic ? ' '.$Toeic : null ) ) ? ( ($Toefl ? $Toefl : null).($Ielts ? ' '.$Ielts : null).( $Toeic ? ' '.$Toeic : null ) ) : 'unknow'  )."'>".$data."</span>";
+}
+
+// Lấy dữ liệu file json và check với preg_match
+function CheckToefl($data,$file){
+    $path = storage_path() . "/data/".$file.".json";
+    $json = json_decode(file_get_contents($path));
+    foreach ($json as $key=>$value){
+        if ($key){
+            $key = checkString($key);
+            if (preg_match("/\b(" . $key. ")\b/i",strtolower($data))){
+                return $file.'-'.$value;
+            }
+        }
+    }
+    return null;
+}
+
+// Xóa các ký tự đặc biệt
+function checkString($string)
+{
+    return preg_replace('/([^\pL\.\ ]+)/u', '', strip_tags($string));
+}
+
+
+// Level
+function Level($data,$file){
+    $path = storage_path() . "/data/".$file.".json";
+    $json = json_decode(file_get_contents($path));
+    $result = null ;
+    $result1 = [];
+    $result2 = [];
+    $result3 = [];
+    $result4 = [];
+    foreach ($json as $key=>$value){
+        if ($key){
+            $key = checkString($key);
+            if (preg_match("/\b(" . $key. ")\b/i",strtolower(checkString($data)))){
+                if ($value == 1){
+                    $result1[] = $key;
+                }
+                if ($value == 2){
+                    $result2[] = $key;
+                }
+                if ($value == 3){
+                    $result3[] = $key;
+                }
+                if ($value == 4){
+                    $result4[] = $key;
+                }
+                $result = [ '1' => $result1,$result2,$result3,$result4 ];
+            }
+        }
+    }
+    return $result;
+}

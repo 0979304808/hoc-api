@@ -79,11 +79,6 @@ class NewsEditor extends CrawlerFunction
      *
      * @return string
      */
-    private function get_kanji_only($string)
-    {
-        $regex = '/<ruby.*?>(.+?)<rt.*?<\/rt>.*?<\/ruby>/';
-        return strip_tags(preg_replace($regex, '$1', $string));
-    }
 
     private function exists_news($link)
     {

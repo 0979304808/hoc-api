@@ -3,7 +3,6 @@
 namespace App\Scraper;
 
 use Goutte\Client;
-use Illuminate\Support\Facades\File;
 use PHPOnCouch\CouchClient;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -33,6 +32,7 @@ class NewsWeek extends CrawlerFunction
 
     public function scraper()
     {
+        echo "Xin chờ chút nhé ..."."\n";
         $crawler = $this->get_content_html(self::url);
         if ($crawler !== false) {
             $homes = $this->get_news_list($crawler);
@@ -106,27 +106,34 @@ class NewsWeek extends CrawlerFunction
     private function store_news(array $news)
     {
         if (!$this->exists_news(self::url . $news['link'])) {
+            try{
                 $detail = $this->get_detail_news(self::url . $news['link'], $news['title']);
                 if (!is_null($detail)) {
                     $data = [
-                        'title' => $news['title'],
+                        'title' => CheckRG($news['title']) ,
                         'link' => self::url . $news['link'],
-                        'description' => trim($news['description'], ' "" '),
+                        'description' => CheckRG(trim($news['description'], ' "" ')) ,
                         'img' => $news['img'],
                         'author' => $detail['author'],
                         'date' => $detail['date'],
                         'content' => [
-                            'body' => $this->get_kanji_only($detail['body']),
+                            'body' => json_encode(CheckRG(($detail['body']))),
                             'images' => $detail['images'],
                             'video' => $detail['video'],
                             'audio' => audio($detail['audio']),
                         ],
                         'type' => 'normal',
+                        'level_ielts' => Level($news['title'].$news['description'].$detail['body'],'Ielts'),
+                        'level_toefl' => Level($news['title'].$news['description'].$detail['body'],'Toefl'),
+                        'level_toeic' => Level($news['title'].$news['description'].$detail['body'],'Toeic'),
                     ];
 
                     $this->couch->storeDoc((object)$data);
                     print $news['title'] . "\n";
                 }
+            }catch (\Exception $e){
+                echo $e->getMessage().' ---Line: '.$e->getTrace()[0]['line'].' ---File: '.$e->getTrace()[0]['file']."\n";die;
+            }
         }
         return false;
     }
@@ -136,12 +143,5 @@ class NewsWeek extends CrawlerFunction
         $doc = $this->couch->key($link)->getView('design', 'newsweek');
         return ($doc->rows) ? true : false;
     }
-
-    private function get_kanji_only($string)
-    {
-        $regex = '/<ruby.*?>(.+?)<rt.*?<\/rt>.*?<\/ruby>/';
-        return strip_tags(preg_replace($regex, '$1', $string));
-    }
-
 
 }
