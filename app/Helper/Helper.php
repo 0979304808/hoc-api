@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\File;
 
 function success($data, $code = 200)
@@ -48,15 +49,14 @@ function nosql($table, $method, $documentID = null, $payload = null)
 }
 
 
-
-
-if(!function_exists('curl_post')){
+if (!function_exists('curl_post')) {
     /**
      * Get data via curl
      *
      * @return object
      */
-    function curl_post($url, $data){
+    function curl_post($url, $data)
+    {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -100,39 +100,70 @@ function audio($url)
     }
     $fp = fopen(public_path('audio/' . $fullpath), 'x');
     $a = fwrite($fp, $result);
-    if ($a > 104857600){
+    if ($a > 104857600) {
         unlink(public_path('audio/' . $fullpath));
         return null;
     }
     fclose($fp);
-    return public_path('audio/'.$fullpath);
+    return public_path('audio/' . $fullpath);
 }
 
 // Check dữ liệu và trả về chuỗi
-function CheckLevel($str,$result = null) {
-    $datas = explode(' ',$str);
-    foreach ($datas as $data){
-        $Toeic = CheckToefl($data,'Toeic');
-        $Toefl = CheckToefl($data,'Toefl');
-        $Ielts = CheckToefl($data,'Ielts');
-        $result[] = '<span class="'.trim(  ( ($Toefl ? $Toefl : null).($Ielts ? " ".$Ielts : null).( $Toeic ? " ".$Toeic : null ) ) ? ( ($Toefl ? $Toefl : null).($Ielts ? " ".$Ielts : null).( $Toeic ? " ".$Toeic : null ) ) : "unknown" , ' ' ).'">'.$data.'</span>';
+function CheckLevel($str)
+{
+    $text = '';
+    $datas = explode(' ', $str);
+    foreach ($datas as $key => $data) {
+        $dataCheck = hand_trim($data);
+        $Toeic = CheckToefl($data, 'Toeic');
+        $Toefl = CheckToefl($data, 'Toefl');
+        $Ielts = CheckToefl($data, 'Ielts');
+        $html_span = '<span class="' . trim((($Toefl ? $Toefl : null) . ($Ielts ? " " . $Ielts : null) . ($Toeic ? " " . $Toeic : null)) ? (($Toefl ? $Toefl : null) . ($Ielts ? " " . $Ielts : null) . ($Toeic ? " " . $Toeic : null)) : "unknown", ' ') . '">' . $dataCheck . '</span>';
+        $word = str_replace($dataCheck, $html_span, $data);
+        $text .= " " . $word;
     }
-    return implode(" ", $result);
+    return $text;
 }
 
 // Lấy dữ liệu file json và check với preg_match
-function CheckToefl($data,$file){
-    $path = storage_path() . "/data/".$file.".json";
-    $json = json_decode(file_get_contents($path));
-    foreach ($json as $key=>$value){
-        if ($key){
+function CheckToefl($data, $file)
+{
+    if ($file === "Toeic") {
+        $json = JsonDataToeic();
+    }
+    if ($file === "Toefl") {
+        $json = JsonDataToefl();
+    }
+    if ($file === "Ielts") {
+        $json = JsonDataIelts();
+    }
+    foreach ($json as $key => $value) {
+        if ($key) {
             $key = checkString($key);
-            if (preg_match("/\b(" . $key. ")\b/i",strtolower($data))){
-                return $file.'-'.$value;
+            if (preg_match("/\b(" . $key . ")\b/i", strtolower($data))) {
+                return $file . '-' . $value;
             }
         }
     }
     return null;
+}
+
+function JsonDataToeic()
+{
+    $json = File::get(storage_path() . "/data/Toeic.json");
+    return json_decode($json);
+}
+
+function JsonDataToefl()
+{
+    $json = File::get(storage_path() . "/data/Toefl.json");
+    return json_decode($json);
+}
+
+function JsonDataIelts()
+{
+    $json = File::get(storage_path() . "/data/Ielts.json");
+    return json_decode($json);
 }
 
 // Xóa các ký tự đặc biệt
@@ -143,33 +174,60 @@ function checkString($string)
 
 
 // Level
-function Level($data,$file){
-    $path = storage_path() . "/data/".$file.".json";
-    $json = json_decode(file_get_contents($path));
-    $result = null ;
+function Level($data, $file)
+{
+    if ($file === "Toeic") {
+        $json = JsonDataToeic();
+    }
+    if ($file === "Toefl") {
+        $json = JsonDataToefl();
+    }
+    if ($file === "Ielts") {
+        $json = JsonDataIelts();
+    }
+    $result = [];
     $result1 = [];
     $result2 = [];
     $result3 = [];
     $result4 = [];
-    foreach ($json as $key=>$value){
-        if ($key){
+    foreach ($json as $key => $value) {
+        if ($key) {
             $key = checkString($key);
-            if (preg_match("/\b(" . $key. ")\b/i",strtolower(checkString($data)))){
-                if ($value == 1){
-                    $result1[] = $key;
+            if (preg_match("/\b(" . $key . ")\b/i", strtolower(checkString($data)))) {
+                if ($value == 1) {
+                    array_push($result1, $key);
                 }
-                if ($value == 2){
-                    $result2[] = $key;
+                if ($value == 2) {
+                    array_push($result2, $key);
                 }
-                if ($value == 3){
-                    $result3[] = $key;
+                if ($value == 3) {
+                    array_push($result3, $key);
                 }
-                if ($value == 4){
-                    $result4[] = $key;
+                if ($value == 4) {
+                    array_push($result4, $key);
                 }
-                $result = [ '1' => $result1,$result2,$result3,$result4 ];
+                $result = ['1' => $result1, $result2, $result3, $result4];
             }
         }
     }
     return $result;
+}
+
+function CheckData($key, $data)
+{
+    preg_match("/\b(" . $key . ")\b/i", strtolower(checkString($data)), $matches);
+    return $matches;
+}
+
+// Loại bỏ hết ký tự đặc biệt
+function hand_trim($str)
+{
+    $pattern = '/[^a-zA-Z0-9]+/';
+    $check = preg_match_all($pattern, $str, $mt);
+    if ($check) {
+        foreach ($mt[0] as $trim_str) {
+            $str = trim($str, addcslashes($trim_str, '.'));
+        }
+    }
+    return $str;
 }

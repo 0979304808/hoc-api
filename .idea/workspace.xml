@@ -2,12 +2,167 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d172ff5-fa45-45ea-b7ae-63ff3f5eaa03" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/couch.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0626_0695.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0641_0913.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0648_0244.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0720_0619.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0753_0915.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0850_0974.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0858_0042.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0906_0901.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0916_0479.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0939_0775.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0951_0429.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_0959_0581.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1014_0834.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1022_0133.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1030_0626.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1044_0726.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1051_0928.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1121_0653.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1157_0994.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1318_0716.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1513_0440.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_1610_0248.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_2245_0164.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_2522_0091.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_2634_0717.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_3142_0023.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_3224_0002.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_3439_0296.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_3531_0214.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_3618_0002.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_3741_0679.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_3823_0448.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_3903_0280.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4035_0707.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4111_0419.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4149_0375.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4332_0240.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4503_0915.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4551_0251.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4639_0387.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4720_0977.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4803_0708.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4846_0982.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_4925_0632.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_5000_0574.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_5130_0847.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_5312_0034.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_5354_0562.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_5439_0348.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_5635_0542.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082112_5711_0788.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_0111_0218.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_0143_0041.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_0303_0408.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_0602_0221.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_0711_0375.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_1217_0144.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_1609_0561.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_1723_0169.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2231_0896.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2448_0988.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2548_0745.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2603_0623.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2638_0268.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2650_0290.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2726_0448.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2742_0599.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2853_0541.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_2913_0535.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3247_0404.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3515_0967.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3600_0595.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3841_0450.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3906_0637.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3909_0995.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3914_0703.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3919_0259.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3924_0822.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_3948_0637.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_4012_0718.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082113_4327_0957.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_3239_0762.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_3327_0525.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_3933_0928.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_4028_0934.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_4843_0907.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_4904_0369.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_4939_0364.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_5012_0749.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_5138_0229.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082114_5459_0909.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_0006_0568.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_0048_0903.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_3341_0136.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_3629_0889.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_3806_0314.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_3907_0238.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_4006_0314.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_5332_0181.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082115_5959_0331.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_0550_0087.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_0844_0273.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1140_0818.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1149_0614.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1226_0733.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1313_0737.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1330_0730.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1356_0988.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1409_0964.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1434_0574.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1453_0753.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_1832_0879.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_2258_0424.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_2748_0916.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_3442_0688.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_3639_0974.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_3824_0751.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_3857_0800.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_3937_0683.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_4011_0772.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_4114_0122.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_4346_0250.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_4501_0123.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_4538_0284.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_4601_0447.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_5146_0590.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_5637_0334.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082116_5905_0526.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0135_0228.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0217_0638.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0303_0787.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0358_0267.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0513_0711.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0606_0011.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0701_0350.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0743_0612.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0855_0694.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_0935_0378.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_1014_0650.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_1250_0742.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_1334_0751.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_1504_0210.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_1559_0122.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_1651_0023.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_1928_0800.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_2024_0405.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_2104_0134.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_2147_0935.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_3914_0010.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_4256_0590.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_4313_0268.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_4325_0716.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_4544_0723.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_4642_0761.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082117_4732_0754.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082118_1358_0196.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/2021082118_1715_0062.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/audio/error text[null] talkID[103] vol[100]  sp[100]  pt[100] dic[0]" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Helper/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helper/Helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Scraper/NewsEditor.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Scraper/NewsWeek.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Scraper/NewsWeek.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,8 +192,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Helper/Helper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="112" column="30" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="30" />
+            <state relative-caret-position="-167">
+              <caret line="112" column="1" selection-start-line="112" selection-start-column="1" selection-end-line="112" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Facades/File.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="293">
+              <caret line="29" column="33" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -46,7 +210,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
+            <state relative-caret-position="757">
               <caret line="46" column="3" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
             </state>
           </provider>
@@ -55,20 +219,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Scraper/NewsWeek.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="110" column="29" lean-forward="true" selection-start-line="110" selection-start-column="29" selection-end-line="110" selection-end-column="29" />
+            <state relative-caret-position="429">
+              <caret line="165" column="5" lean-forward="true" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
               <folding>
-                <element signature="e#31#49#0#PHP" expanded="true" />
+                <element signature="e#31#65#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/app.php">
+        <entry file="file://$PROJECT_DIR$/vendor/php-on-couch/php-on-couch/src/CouchClient.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="17" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="17" />
+            <state relative-caret-position="193">
+              <caret line="664" column="29" selection-start-line="664" selection-start-column="29" selection-end-line="664" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -94,7 +258,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
+            <state relative-caret-position="638">
               <caret line="46" column="17" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
             </state>
           </provider>
@@ -138,6 +302,7 @@
       <find>composer.json</find>
       <find>/</find>
       <find>str_word_count</find>
+      <find>$insert</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -295,8 +460,7 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-235" />
-    <option name="y" value="5" />
+    <option name="x" value="266" />
     <option name="width" value="1630" />
     <option name="height" value="1040" />
   </component>
@@ -448,18 +612,18 @@
       <workItem from="1629380054186" duration="2840000" />
       <workItem from="1629418099586" duration="14115000" />
       <workItem from="1629449905403" duration="20304000" />
-      <workItem from="1629507039785" duration="1408000" />
+      <workItem from="1629507039785" duration="30041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="239560000" />
+    <option name="totallyTimeSpent" value="268193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1885906" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1885906" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -473,8 +637,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.61048156" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.04249292" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.61" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.58498585" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -532,13 +696,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Facades/File.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="45" column="6" selection-start-line="45" selection-start-column="6" selection-end-line="45" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_9.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
@@ -550,13 +707,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
           <caret line="519" column="9" selection-start-line="519" selection-start-column="9" selection-end-line="519" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/php-on-couch/php-on-couch/src/CouchClient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2941">
-          <caret line="193" column="35" selection-start-line="193" selection-start-column="26" selection-end-line="193" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -648,34 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="17" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Scraper/CrawlerFunction.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="20" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="46" column="17" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bootstrap/app.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -686,26 +808,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Helper/Helper.php">
+    <entry file="file://$PROJECT_DIR$/config/app.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="112" column="30" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="30" />
+        <state relative-caret-position="204">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/php-on-couch/php-on-couch/src/CouchClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="664" column="29" selection-start-line="664" selection-start-column="29" selection-end-line="664" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="46" column="17" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Scraper/CrawlerFunction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="20" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Facades/File.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="29" column="33" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/api.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
+        <state relative-caret-position="757">
           <caret line="46" column="3" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Helper/Helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-167">
+          <caret line="112" column="1" selection-start-line="112" selection-start-column="1" selection-end-line="112" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Scraper/NewsWeek.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="110" column="29" lean-forward="true" selection-start-line="110" selection-start-column="29" selection-end-line="110" selection-end-column="29" />
+        <state relative-caret-position="429">
+          <caret line="165" column="5" lean-forward="true" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
           <folding>
-            <element signature="e#31#49#0#PHP" expanded="true" />
+            <element signature="e#31#65#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

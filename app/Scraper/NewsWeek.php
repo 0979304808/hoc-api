@@ -2,9 +2,9 @@
 
 namespace App\Scraper;
 
+use App\Http\Middleware\CheckUser;
 use Goutte\Client;
 use PHPOnCouch\CouchClient;
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 // scrape:NewsWeek
 // DB newsweek
@@ -15,7 +15,8 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class NewsWeek extends CrawlerFunction
 {
-    const url = 'https://www.newsweek.com';
+    const url = 'https://www.newsweek.com/world';
+    const urli = 'https://www.newsweek.com';
 
     private $client;
     private $couch;
@@ -29,10 +30,10 @@ class NewsWeek extends CrawlerFunction
 
     public function scraper()
     {
-        echo "Xin chờ chút nhé ..."."\n";
+        echo 'Xin chờ chút nhé ...' . "\n";
         $crawler = $this->get_content_html(self::url);
         if ($crawler !== false) {
-            $this->get_news_list($crawler);
+            $this->get_news_list_home($crawler);
         } else {
             $this->output->writeln("Cannot get news");
         }
@@ -43,7 +44,6 @@ class NewsWeek extends CrawlerFunction
     {
         $crawler = $this->client->request('GET', $url);
         $response = $this->client->getResponse();
-
         if ($response->getStatusCode() == 200) {
             return $crawler;
         }
@@ -51,25 +51,30 @@ class NewsWeek extends CrawlerFunction
     }
 
     // Get Page Home
-    private function get_news_list($crawler)
+    private function get_news_list_home($crawler)
     {
         $total = 0;
         try {
-            $crawler->filter('.col4 .content article')->each(function ($node) use (&$total) {
-                $data =  [
-                    'title' => $node->filter('.image a')->count() ? $node->filter('.image a')->text() : null,
-                    'link' => $node->filter('.image a')->count() ? $node->filter('.image a')->attr('href') : null,
-                    'description' => $node->filter('.summary')->count() ? $node->filter('.summary')->text() : null,
-                    'img' => $node->filter('.image img')->count() ? $node->filter('.image img')->attr('src') : null
+            $crawler->filter('.content article')->each(function ($node) use (&$total) {
+                $title = $node->filter('.image a')->count() ? $node->filter('.image a')->text() : null;
+                $description = $node->filter('.summary')->count() ? $node->filter('.summary')->text() : null;
+                $link = $node->filter('.image a')->count() ? $node->filter('.image a')->attr('href') : null;
+                $img = $node->filter('.image img')->count() ? ($node->filter('.image img')->attr('src') == null ? $node->filter('.image img')->attr('data-src') : $node->filter('.image img')->attr('src')) : null;
+                $data = [
+                    'title' => $title,
+                    'link' => $link,
+                    'description' => $description,
+                    'img' => $img
                 ];
-                $insert = $this->store_news($data);
-                ($insert) ? $total++ : null;
-
+                if ($this->store_news($data)) {
+                    printf($title) . "\n";
+                    $total++;
+                }
             });
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
-        echo "Import $total news "."\n";
+        echo "Import $total news " . "\n";
     }
 
     // Get Page Details
@@ -77,25 +82,21 @@ class NewsWeek extends CrawlerFunction
     {
         $news = $this->get_content_html($url);
         if ($news !== false) {
-            $details = $news->filter('.content article ')->each(function ($node) {
-                $text = $node->filter('.article-body p')->each(function ($t) {
-                    return $t->text();
-                });
-
-                $image = $node->filter('figure img')->each(function ($im){
-                    return $im->attr('src');
-                });
-                $url_audio = "https://readspeaker.jp/ASLCLCLVVS/JMEJSYGDCHMSMHSRKPJL/" . substr($this->get_audio($text), 5, -2);
-                return [
-                    'body' => implode(' ', $text),
-                    'images' => ($node->filter('figure img')->count()) ? $image : null,
-                    'video' => isset($video) ? $video : null,
-                    'audio' => $url_audio,
-                    'date' => $node->filter('time')->count() ? $node->filter('time')->attr('datetime') : null,
-                    'author' => $node->filter('.author a')->count() ? $node->filter('.author a')->text() : null,
-                ];
+            $text = $news->filter('.article-body p')->each(function ($t) {
+                return $t->text();
             });
-            return $details[0];
+            $image = $news->filter('figure img')->each(function ($im) {
+                return $im->attr('src');
+            });
+            $url_audio = "https://readspeaker.jp/ASLCLCLVVS/JMEJSYGDCHMSMHSRKPJL/" . substr($this->get_audio($text), 5, -2);
+            return [
+                'body' => (implode(' ', $text)),
+                'images' => ($news->filter('figure img')->count()) ? $image : null,
+                'video' => isset($video) ? $video : null,
+                'audio' => audio($url_audio),
+                'date' => $news->filter('time')->count() ? $news->filter('time')->attr('datetime') : null,
+                'author' => $news->filter('.author a')->count() ? $news->filter('.author a')->text() : null,
+            ];
         }
         return null;
     }
@@ -103,37 +104,59 @@ class NewsWeek extends CrawlerFunction
     // Lưu vào nosql
     private function store_news(array $news)
     {
-        if ($this->exists_news(self::url . $news['link'])) {
-            try{
-                $detail = $this->get_detail_news(self::url . $news['link'], $news['title']);
-                dd( explode(' ',$detail['body']));
+        if ($this->exists_news(self::urli . $news['link'])) {
+            try {
+                $detail = $this->get_detail_news(self::urli . $news['link']);
                 if (!is_null($detail)) {
+
                     $data = [
-                        'title' => CheckLevel($news['title']) ,
-                        'link' => self::url . $news['link'],
-                        'description' => CheckLevel($news['description']) ,
+                        'title' => CheckLevel($news['title']),
+                        'link' => self::urli . $news['link'],
+                        'description' => CheckLevel($news['description']),
                         'img' => $news['img'],
                         'author' => $detail['author'],
-                        'date' => date_format(date_create($detail['date']),"Y/m/d H:i:s"),
+                        'date' => date_format(date_create($detail['date']), "Y/m/d H:i:s"),
                         'content' => [
-                            'body' =>  CheckLevel($detail['body']) ,
+                            'body' => CheckLevel($detail['body']),
                             'images' => $detail['images'],
                             'video' => $detail['video'],
-                            'audio' => audio($detail['audio']),
+                            'audio' => $detail['audio'],
                         ],
                         'type' => 'normal',
-                        'level_ielts' => Level($news['title']." ".$news['description']." ".$detail['body'],'Ielts'),
-                        'level_toefl' => Level($news['title']." ".$news['description']." ".$detail['body'],'Toefl'),
-                        'level_toeic' => Level($news['title']." ".$news['description']." ".$detail['body'],'Toeic'),
                     ];
 
-                    if ($this->couch->storeDoc((object)$data)){
-                        print $news['title'] . "\n";
+                    $text = $news['title'] . ' ' . $news['description'] . ' ' . $detail['body'];
+                    $data['level_Toeic'] = Level($text, 'Toeic');
+                    $level_Toeic = isset($data['level_Toeic']) ? $data['level_Toeic'] : null;
+                    if ($level_Toeic !== null) {
+                        foreach ($level_Toeic as $key => $value) {
+                            $data['Toeic'][$key] = count($value);
+                        }
+                    }
+
+
+                    $data['level_Toefl'] = Level($text, 'Toefl');
+                    $level_Toefl = isset($data['level_Toefl']) ? $data['level_Toefl'] : null;
+                    if ($level_Toefl !== null) {
+                        foreach ($level_Toefl as $key => $value) {
+                            $data['Toefl'][$key] = count($value);
+                        }
+                    }
+
+                    $data['level_Ielts'] = Level($text, 'Ielts');
+                    $level_Ielts = isset($data['level_Ielts']) ? $data['level_Ielts'] : null;
+                    if ($level_Ielts !== null) {
+                        foreach ($level_Ielts as $key => $value) {
+                            $data['Ielts'][$key] = count($value);
+                        }
+                    }
+
+                    if ($this->couch->storeDoc((object)$data)) {
                         return true;
                     };
                 }
-            }catch (\Exception $e){
-                echo $e->getMessage().' ---Line: '.$e->getTrace()[0]['line'].' ---File: '.$e->getTrace()[0]['file']."\n";
+            } catch (\Exception $e) {
+                echo $e->getMessage() . ' ---Line: ' . $e->getTrace()[0]['line'] . ' ---File: ' . $e->getTrace()[0]['file'] . "\n";
             }
         }
     }
