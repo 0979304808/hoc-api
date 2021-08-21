@@ -3,6 +3,7 @@
 namespace App\Scraper;
 
 use App\Http\Middleware\CheckUser;
+use Carbon\Carbon;
 use Goutte\Client;
 use PHPOnCouch\CouchClient;
 
@@ -30,6 +31,7 @@ class NewsWeek extends CrawlerFunction
 
     public function scraper()
     {
+        echo  Carbon::now('Asia/Ho_Chi_Minh')."\n";
         echo 'Xin chờ chút nhé ...' . "\n";
         $crawler = $this->get_content_html(self::url);
         if ($crawler !== false) {
@@ -68,6 +70,7 @@ class NewsWeek extends CrawlerFunction
                 ];
                 if ($this->store_news($data)) {
                     printf($title) . "\n";
+                    echo  Carbon::now('Asia/Ho_Chi_Minh')."\n";
                     $total++;
                 }
             });

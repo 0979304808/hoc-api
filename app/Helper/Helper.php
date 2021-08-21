@@ -139,8 +139,7 @@ function CheckToefl($data, $file)
     }
     foreach ($json as $key => $value) {
         if ($key) {
-            $key = checkString($key);
-            if (preg_match("/\b(" . $key . ")\b/i", strtolower($data))) {
+            if ($key === strtolower($data) ) {
                 return $file . '-' . $value;
             }
         }
