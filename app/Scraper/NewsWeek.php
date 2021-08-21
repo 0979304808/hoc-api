@@ -20,14 +20,11 @@ class NewsWeek extends CrawlerFunction
     private $client;
     private $couch;
     private $output;
-    private $newsEditor;
 
     public function __construct()
     {
         $this->client = new Client();
-        $this->output = new ConsoleOutput();
-        $this->couch = new CouchClient('http://127.0.0.1:5984', 'newsweek', ['username' => 'admin', 'password' => 'hoanghung1']);
-        $this->newsEditor = new NewsEditor();
+        $this->couch = new CouchClient(config('couch.host'), config('couch.db'), ['username' => config('couch.username'), 'password' => config('couch.password')]);
     }
 
     public function scraper()
@@ -35,17 +32,13 @@ class NewsWeek extends CrawlerFunction
         echo "Xin chờ chút nhé ..."."\n";
         $crawler = $this->get_content_html(self::url);
         if ($crawler !== false) {
-            $homes = $this->get_news_list($crawler);
-            if ($homes) {
-                foreach ($homes as $key => $news) {
-                    $this->store_news($news);
-                };
-            }
+            $this->get_news_list($crawler);
         } else {
             $this->output->writeln("Cannot get news");
         }
     }
 
+    // Lấy dữ liệu website theo url
     private function get_content_html($url)
     {
         $crawler = $this->client->request('GET', $url);
@@ -60,22 +53,23 @@ class NewsWeek extends CrawlerFunction
     // Get Page Home
     private function get_news_list($crawler)
     {
-
         $total = 0;
         try {
-            $a = $crawler->filter('.col4 .content article')->each(function ($node) {
-                return [
+            $crawler->filter('.col4 .content article')->each(function ($node) use (&$total) {
+                $data =  [
                     'title' => $node->filter('.image a')->count() ? $node->filter('.image a')->text() : null,
                     'link' => $node->filter('.image a')->count() ? $node->filter('.image a')->attr('href') : null,
                     'description' => $node->filter('.summary')->count() ? $node->filter('.summary')->text() : null,
                     'img' => $node->filter('.image img')->count() ? $node->filter('.image img')->attr('src') : null
                 ];
+                $insert = $this->store_news($data);
+                ($insert) ? $total++ : null;
+
             });
-            return $a;
         } catch (\Exception $e) {
-            $this->output->writeln($e->getMessage());
+            echo $e->getMessage();
         }
-        return $total;
+        echo "Import $total news "."\n";
     }
 
     // Get Page Details
@@ -83,21 +77,25 @@ class NewsWeek extends CrawlerFunction
     {
         $news = $this->get_content_html($url);
         if ($news !== false) {
-            $a = $news->filter('.content article ')->each(function ($node) {
+            $details = $news->filter('.content article ')->each(function ($node) {
                 $text = $node->filter('.article-body p')->each(function ($t) {
                     return $t->text();
                 });
+
+                $image = $node->filter('figure img')->each(function ($im){
+                    return $im->attr('src');
+                });
                 $url_audio = "https://readspeaker.jp/ASLCLCLVVS/JMEJSYGDCHMSMHSRKPJL/" . substr($this->get_audio($text), 5, -2);
                 return [
-                    'body' => trim(implode(',', $text)),
-                    'images' => [($node->filter('figure img')->count()) ? $node->filter('figure img')->attr('src') : null],
-                    'video' => 'video',
+                    'body' => implode(' ', $text),
+                    'images' => ($node->filter('figure img')->count()) ? $image : null,
+                    'video' => isset($video) ? $video : null,
                     'audio' => $url_audio,
                     'date' => $node->filter('time')->count() ? $node->filter('time')->attr('datetime') : null,
                     'author' => $node->filter('.author a')->count() ? $node->filter('.author a')->text() : null,
                 ];
             });
-            return $a[0];
+            return $details[0];
         }
         return null;
     }
@@ -105,43 +103,46 @@ class NewsWeek extends CrawlerFunction
     // Lưu vào nosql
     private function store_news(array $news)
     {
-        if (!$this->exists_news(self::url . $news['link'])) {
+        if ($this->exists_news(self::url . $news['link'])) {
             try{
                 $detail = $this->get_detail_news(self::url . $news['link'], $news['title']);
+                dd( explode(' ',$detail['body']));
                 if (!is_null($detail)) {
                     $data = [
-                        'title' => CheckRG($news['title']) ,
+                        'title' => CheckLevel($news['title']) ,
                         'link' => self::url . $news['link'],
-                        'description' => CheckRG(trim($news['description'], ' "" ')) ,
+                        'description' => CheckLevel($news['description']) ,
                         'img' => $news['img'],
                         'author' => $detail['author'],
-                        'date' => $detail['date'],
+                        'date' => date_format(date_create($detail['date']),"Y/m/d H:i:s"),
                         'content' => [
-                            'body' => json_encode(CheckRG(($detail['body']))),
+                            'body' =>  CheckLevel($detail['body']) ,
                             'images' => $detail['images'],
                             'video' => $detail['video'],
                             'audio' => audio($detail['audio']),
                         ],
                         'type' => 'normal',
-                        'level_ielts' => Level($news['title'].$news['description'].$detail['body'],'Ielts'),
-                        'level_toefl' => Level($news['title'].$news['description'].$detail['body'],'Toefl'),
-                        'level_toeic' => Level($news['title'].$news['description'].$detail['body'],'Toeic'),
+                        'level_ielts' => Level($news['title']." ".$news['description']." ".$detail['body'],'Ielts'),
+                        'level_toefl' => Level($news['title']." ".$news['description']." ".$detail['body'],'Toefl'),
+                        'level_toeic' => Level($news['title']." ".$news['description']." ".$detail['body'],'Toeic'),
                     ];
 
-                    $this->couch->storeDoc((object)$data);
-                    print $news['title'] . "\n";
+                    if ($this->couch->storeDoc((object)$data)){
+                        print $news['title'] . "\n";
+                        return true;
+                    };
                 }
             }catch (\Exception $e){
-                echo $e->getMessage().' ---Line: '.$e->getTrace()[0]['line'].' ---File: '.$e->getTrace()[0]['file']."\n";die;
+                echo $e->getMessage().' ---Line: '.$e->getTrace()[0]['line'].' ---File: '.$e->getTrace()[0]['file']."\n";
             }
         }
-        return false;
     }
 
+    // Check document đã tồn tại hay chưa bằng link
     private function exists_news($link)
     {
         $doc = $this->couch->key($link)->getView('design', 'newsweek');
-        return ($doc->rows) ? true : false;
+        return ($doc->rows) ? false : true;
     }
 
 }

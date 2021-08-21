@@ -41,3 +41,8 @@ Route::post('updateDocument/{document}','CrawlController@updateDocument');
 Route::get('deleteDocument/{documnet}','CrawlController@deleteDocument');
 Route::get('document/{document}','CrawlController@show');
 
+Route::get('test',function (){
+//    return url('abc') ;
+    return asset('abc') ;
+});
+

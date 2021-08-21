@@ -105,23 +105,19 @@ function audio($url)
         return null;
     }
     fclose($fp);
-    return 'http://127.0.0.1:8000/audio/'.$fullpath;
+    return public_path('audio/'.$fullpath);
 }
 
-// Check dữ liệu và trả về string
-function CheckRG($str,$result = null) {
-    $datas = str_word_count(checkString($str),1);
+// Check dữ liệu và trả về chuỗi
+function CheckLevel($str,$result = null) {
+    $datas = explode(' ',$str);
     foreach ($datas as $data){
         $Toeic = CheckToefl($data,'Toeic');
         $Toefl = CheckToefl($data,'Toefl');
         $Ielts = CheckToefl($data,'Ielts');
-        $result[] = Data($Toeic, $Ielts, $Toefl, $data);
+        $result[] = '<span class="'.trim(  ( ($Toefl ? $Toefl : null).($Ielts ? " ".$Ielts : null).( $Toeic ? " ".$Toeic : null ) ) ? ( ($Toefl ? $Toefl : null).($Ielts ? " ".$Ielts : null).( $Toeic ? " ".$Toeic : null ) ) : "unknown" , ' ' ).'">'.$data.'</span>';
     }
-    return implode(" ",$result);
-}
-// Thêm thẻ span và các class
-function Data($Toeic, $Ielts, $Toefl, $data){
-    return "<span class='".(  ( ($Toefl ? $Toefl : null).($Ielts ? ' '.$Ielts : null).( $Toeic ? ' '.$Toeic : null ) ) ? ( ($Toefl ? $Toefl : null).($Ielts ? ' '.$Ielts : null).( $Toeic ? ' '.$Toeic : null ) ) : 'unknow'  )."'>".$data."</span>";
+    return implode(" ", $result);
 }
 
 // Lấy dữ liệu file json và check với preg_match
