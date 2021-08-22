@@ -137,38 +137,31 @@ function CheckToefl($data, $file)
     if ($file === "Ielts") {
         $json = JsonDataIelts();
     }
-    foreach ($json as $key => $value) {
-        if ($key) {
-            if ($key === strtolower($data) ) {
-                return $file . '-' . $value;
-            }
+    if (isset($json)) {
+        if (array_key_exists($data, $json)) {
+            return $file . '-' . $json[$data];
         }
     }
+
     return null;
 }
 
 function JsonDataToeic()
 {
     $json = File::get(storage_path() . "/data/Toeic.json");
-    return json_decode($json);
+    return json_decode($json, true);
 }
 
 function JsonDataToefl()
 {
     $json = File::get(storage_path() . "/data/Toefl.json");
-    return json_decode($json);
+    return json_decode($json, true);
 }
 
 function JsonDataIelts()
 {
     $json = File::get(storage_path() . "/data/Ielts.json");
-    return json_decode($json);
-}
-
-// Xóa các ký tự đặc biệt
-function checkString($string)
-{
-    return preg_replace('/([^\pL\.\ ]+)/u', '', strip_tags($string));
+    return json_decode($json, true);
 }
 
 
@@ -184,29 +177,33 @@ function Level($data, $file)
     if ($file === "Ielts") {
         $json = JsonDataIelts();
     }
-    $result = [];
-    $result1 = [];
-    $result2 = [];
-    $result3 = [];
-    $result4 = [];
-    foreach ($json as $key => $value) {
-        if ($key) {
-            $key = checkString($key);
-            if (preg_match("/\b(" . $key . ")\b/i", strtolower(checkString($data)))) {
-                if ($value == 1) {
-                    array_push($result1, $key);
+    $result = array();
+    $result1 = array();
+    $result2 = array();
+    $result3 = array();
+    $result4 = array();
+    $unknown = array();
+    $datas = explode(' ', $data);
+    foreach ($datas as $value) {
+        $value =  hand_trim($value);
+        if (isset($json)) {
+            if (array_key_exists($value, $json)) {
+                if ($json[$value] === 1) {
+                    array_push($result1, $value);
                 }
-                if ($value == 2) {
-                    array_push($result2, $key);
+                if ($json[$value] === 2) {
+                    array_push($result2, $value);
                 }
-                if ($value == 3) {
-                    array_push($result3, $key);
+                if ($json[$value] === 3) {
+                    array_push($result3, $value);
                 }
-                if ($value == 4) {
-                    array_push($result4, $key);
+                if ($json[$value] === 4) {
+                    array_push($result4, $value);
                 }
-                $result = ['1' => $result1, $result2, $result3, $result4];
+            }else {
+                array_push($unknown, $value);
             }
+            $result = ['1' => $result1, $result2, $result3, $result4,'unknown'=>$unknown];
         }
     }
     return $result;
@@ -229,4 +226,10 @@ function hand_trim($str)
         }
     }
     return $str;
+}
+
+// Xóa các ký tự đặc biệt
+function checkString($string)
+{
+    return  preg_replace('/([^\pL\.\ ]+)/u', '', strip_tags($string));
 }
