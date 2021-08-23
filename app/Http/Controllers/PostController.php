@@ -38,7 +38,6 @@ class PostController extends Controller
         } else {
             return error('khong co quyen truy cap', 401);
         }
-
     }
 
     // Lấy ra 1 bài viết

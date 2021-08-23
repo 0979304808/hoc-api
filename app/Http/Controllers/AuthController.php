@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewEvent;
 use App\Http\Requests\AuthRegister;
 use App\User;
 use Illuminate\Http\Request;
@@ -19,6 +20,9 @@ class AuthController extends Controller
         $validated['token'] = Str::random(40);
         $validated['password'] = bcrypt($validated['password']);
         $user = User::create($validated);
+        if ($user){
+            event(new NewEvent($user)); // gửi maill
+        }
         return response()->json(['status' => 201, 'data' => $user, 'token' => $user->token], 201);
     }
 

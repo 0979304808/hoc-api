@@ -182,11 +182,10 @@ function Level($data, $file)
     $result3 = array();
     $result4 = array();
     $unknown = array();
-    $data = preg_replace('/[^a-zA-Z0-9_ -]/s', '', $data);
+    $data = checkString($data); // Xóa các ký tự đặc biệt
     $datas = explode(' ', $data);
     $uniques = array_unique($datas);
     foreach ($uniques as $value) {
-        $value = hand_trim($value);
         if (isset($json)) {
             if (array_key_exists($value, $json)) {
                 if ($json[$value] === 1) {
@@ -231,5 +230,5 @@ function hand_trim($str)
 // Xóa các ký tự đặc biệt
 function checkString($string)
 {
-    return preg_replace('/([^\pL\.\ ]+)/u', '', strip_tags($string));
+    return preg_replace('/[^a-zA-Z0-9_ -]/s', '', $string);
 }
