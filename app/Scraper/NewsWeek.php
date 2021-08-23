@@ -75,7 +75,7 @@ class NewsWeek extends CrawlerFunction
                 }
             });
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            echo $e->getMessage()."\n";
         }
         echo "Import $total news " . "\n";
     }
@@ -129,31 +129,27 @@ class NewsWeek extends CrawlerFunction
                     ];
 
                     $text = $news['title'] . ' ' . $news['description'] . ' ' . $detail['body'];
-                    $data['level_Toeic'] = Level($text, 'Toeic');
-                    $level_Toeic = isset($data['level_Toeic']) ? $data['level_Toeic'] : null;
-                    if ($level_Toeic !== null) {
-                        foreach ($level_Toeic as $key => $value) {
+                    $data['level_Toeic'] = Level($text, 'Toeic') ? Level($text, 'Toeic') : null;
+                    if ($data['level_Toeic'] !== null) {
+                        foreach ($data['level_Toeic'] as $key => $value) {
                             $data['Toeic'][$key] = count($value);
                         }
                     }
 
 
-                    $data['level_Toefl'] = Level($text, 'Toefl');
-                    $level_Toefl = isset($data['level_Toefl']) ? $data['level_Toefl'] : null;
-                    if ($level_Toefl !== null) {
-                        foreach ($level_Toefl as $key => $value) {
+                    $data['level_Toefl'] = Level($text, 'Toefl') ? Level($text, 'Toefl') : null;
+                    if ($data['level_Toefl'] !== null) {
+                        foreach ($data['level_Toefl'] as $key => $value) {
                             $data['Toefl'][$key] = count($value);
                         }
                     }
 
-                    $data['level_Ielts'] = Level($text, 'Ielts');
-                    $level_Ielts = isset($data['level_Ielts']) ? $data['level_Ielts'] : null;
-                    if ($level_Ielts !== null) {
-                        foreach ($level_Ielts as $key => $value) {
+                    $data['level_Ielts'] = Level($text, 'Ielts') ? Level($text, 'Ielts') : null;
+                    if ($data['level_Ielts'] !== null) {
+                        foreach ($data['level_Ielts'] as $key => $value) {
                             $data['Ielts'][$key] = count($value);
                         }
                     }
-
                     if ($this->couch->storeDoc((object)$data)) {
                         return true;
                     };

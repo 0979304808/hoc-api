@@ -177,19 +177,20 @@ function Level($data, $file)
     if ($file === "Ielts") {
         $json = JsonDataIelts();
     }
-    $result = array();
     $result1 = array();
     $result2 = array();
     $result3 = array();
     $result4 = array();
     $unknown = array();
+    $data = preg_replace('/[^a-zA-Z0-9_ -]/s', '', $data);
     $datas = explode(' ', $data);
-    foreach ($datas as $value) {
-        $value =  hand_trim($value);
+    $uniques = array_unique($datas);
+    foreach ($uniques as $value) {
+        $value = hand_trim($value);
         if (isset($json)) {
             if (array_key_exists($value, $json)) {
                 if ($json[$value] === 1) {
-                    array_push($result1, $value);
+                    array_push($result1,  $value);
                 }
                 if ($json[$value] === 2) {
                     array_push($result2, $value);
@@ -200,13 +201,12 @@ function Level($data, $file)
                 if ($json[$value] === 4) {
                     array_push($result4, $value);
                 }
-            }else {
+            } else {
                 array_push($unknown, $value);
             }
-            $result = ['1' => $result1, $result2, $result3, $result4,'unknown'=>$unknown];
         }
     }
-    return $result;
+    return ["1" => $result1, $result2, $result3, $result4, 'unknown' => $unknown ];
 }
 
 function CheckData($key, $data)
@@ -231,5 +231,5 @@ function hand_trim($str)
 // Xóa các ký tự đặc biệt
 function checkString($string)
 {
-    return  preg_replace('/([^\pL\.\ ]+)/u', '', strip_tags($string));
+    return preg_replace('/([^\pL\.\ ]+)/u', '', strip_tags($string));
 }
