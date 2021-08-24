@@ -94,18 +94,21 @@ function audio($url)
     curl_close($ch);
 
     $fullpath = basename($url);
-
     if (File::exists(public_path('audio/' . $fullpath))) {
         unlink(public_path('audio/' . $fullpath));
     }
     $fp = fopen(public_path('audio/' . $fullpath), 'x');
+//    if (str_word_count($result) > 400000) {
+//        unlink(public_path('audio/' . $fullpath));
+//        return null;
+//    }
     $a = fwrite($fp, $result);
     if ($a > 104857600) {
         unlink(public_path('audio/' . $fullpath));
         return null;
     }
     fclose($fp);
-    return public_path('audio/' . $fullpath);
+    return asset('audio/' . $fullpath);
 }
 
 // Check dữ liệu và trả về chuỗi
@@ -189,7 +192,7 @@ function Level($data, $file)
         if (isset($json)) {
             if (array_key_exists($value, $json)) {
                 if ($json[$value] === 1) {
-                    array_push($result1,  $value);
+                    array_push($result1, $value);
                 }
                 if ($json[$value] === 2) {
                     array_push($result2, $value);
@@ -205,7 +208,7 @@ function Level($data, $file)
             }
         }
     }
-    return ["1" => $result1, $result2, $result3, $result4, 'unknown' => $unknown ];
+    return ["1" => $result1, $result2, $result3, $result4, 'unknown' => $unknown];
 }
 
 function CheckData($key, $data)

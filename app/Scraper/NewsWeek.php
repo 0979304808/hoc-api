@@ -31,7 +31,7 @@ class NewsWeek extends CrawlerFunction
 
     public function scraper()
     {
-        echo  Carbon::now('Asia/Ho_Chi_Minh')."\n";
+        echo Carbon::now('Asia/Ho_Chi_Minh') . "\n";
         echo 'Xin chờ chút nhé ...' . "\n";
         $crawler = $this->get_content_html(self::url);
         if ($crawler !== false) {
@@ -70,12 +70,12 @@ class NewsWeek extends CrawlerFunction
                 ];
                 if ($this->store_news($data)) {
                     printf($title) . "\n";
-                    echo  Carbon::now('Asia/Ho_Chi_Minh')."\n";
+                    echo Carbon::now('Asia/Ho_Chi_Minh') . "\n";
                     $total++;
                 }
             });
         } catch (\Exception $e) {
-            echo $e->getMessage()."\n";
+            echo $e->getMessage() . "\n";
         }
         echo "Import $total news " . "\n";
     }
@@ -130,21 +130,19 @@ class NewsWeek extends CrawlerFunction
 
                     $text = $news['title'] . ' ' . $news['description'] . ' ' . $detail['body'];
                     $data['level_Toeic'] = Level($text, 'Toeic') ? Level($text, 'Toeic') : null;
+                    $data['level_Toefl'] = Level($text, 'Toefl') ? Level($text, 'Toefl') : null;
+                    $data['level_Ielts'] = Level($text, 'Ielts') ? Level($text, 'Ielts') : null;
                     if ($data['level_Toeic'] !== null) {
                         foreach ($data['level_Toeic'] as $key => $value) {
                             $data['Toeic'][$key] = count($value);
                         }
                     }
 
-
-                    $data['level_Toefl'] = Level($text, 'Toefl') ? Level($text, 'Toefl') : null;
                     if ($data['level_Toefl'] !== null) {
                         foreach ($data['level_Toefl'] as $key => $value) {
                             $data['Toefl'][$key] = count($value);
                         }
                     }
-
-                    $data['level_Ielts'] = Level($text, 'Ielts') ? Level($text, 'Ielts') : null;
                     if ($data['level_Ielts'] !== null) {
                         foreach ($data['level_Ielts'] as $key => $value) {
                             $data['Ielts'][$key] = count($value);

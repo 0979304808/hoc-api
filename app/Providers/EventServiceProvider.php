@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\NewEvent;
+use App\Events\NewNotification;
 use App\Listeners\NewListener;
+use App\Listeners\NotificationListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -15,8 +17,12 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         NewEvent::class => [
-            NewListener::class
-        ]
+            NewListener::class,
+            NotificationListener::class
+
+        ],
+        NewNotification::class => [
+        ],
     ];
 
     /**
